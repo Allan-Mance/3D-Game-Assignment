@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://dw1o5qjy4lxgl"]
+
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_74rtm"]
+[ext_resource type="ArrayMesh" uid="uid://dsjthcae58dgf" path="res://Assets/modular_terrain_collection/Beach_Terrain_Sand_Floor.obj" id="2_ow08j"]
+[ext_resource type="Script" path="res://Camera3D.gd" id="2_xxn3s"]
+[ext_resource type="ArrayMesh" uid="uid://lwqdi0hlv6ke" path="res://Assets/a-104_rifle.obj" id="3_ti8yf"]
+[ext_resource type="Script" path="res://Global.gd" id="4_mxv2y"]
+
+[sub_resource type="Environment" id="Environment_u2eer"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_45uf3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yaodt"]
+
+[node name="Game" type="Node3D"]
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u2eer")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_74rtm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_45uf3")
+
+[node name="Node3D" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Node3D"]
+script = ExtResource("2_xxn3s")
+
+[node name="Gun" type="MeshInstance3D" parent="Player/Node3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.29, -0.16, -0.37)
+mesh = ExtResource("3_ti8yf")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.667675, 0)
+light_color = Color(0.94902, 0.87451, 0.870588, 1)
+light_energy = 16.0
+light_indirect_energy = 1.43
+light_volumetric_fog_energy = 6.867
+light_size = 0.57
+omni_range = 2843.48
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -1.15942, 0)
+mesh = ExtResource("2_ow08j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -6.17085, 0)
+shape = SubResource("BoxShape3D_yaodt")
+
+[node name="Global" type="Node" parent="."]
+script = ExtResource("4_mxv2y")
